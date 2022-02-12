@@ -7,6 +7,18 @@ let table = [[null, null, null],
 table_generate();
 btn_reset.addEventListener('click', reset_game);
 
+function table_generate() {
+    let line, col;
+    for (let i = 0; i < 9; ++i) {
+        let e = document.createElement("div");
+        line = Math.round((i + 2) / 3) - 1;
+        col = Math.round(i % 3);
+        e.setAttribute('line', line);
+        e.setAttribute('col', col);
+        game.appendChild(e);
+    }
+}
+
 game.addEventListener('click', (e) => {
     const tg = e.target;
     let line = parseInt(tg.getAttribute('line'));
@@ -26,18 +38,6 @@ game.addEventListener('click', (e) => {
         change_player();
     }
 });
-
-function table_generate() {
-    let line, col;
-    for (let i = 0; i < 9; ++i) {
-        let e = document.createElement("div");
-        line = Math.round((i + 2) / 3) - 1;
-        col = Math.round(i % 3);
-        e.setAttribute('line', line);
-        e.setAttribute('col', col);
-        game.appendChild(e);
-    }
-}
 
 function change_player() {
     if (player == "X")
