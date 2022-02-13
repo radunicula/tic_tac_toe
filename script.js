@@ -1,11 +1,21 @@
 const game = document.getElementById("game");
 const btn_reset = document.getElementById("reset");
 let player = "X", mouves = 0;
-let table = [[null, null, null],
-             [null, null, null],
-             [null, null, null]]
+let table = [[],[],[]]
 table_generate();
 btn_reset.addEventListener('click', reset_game);
+
+function table_generate() {
+    let line, col;
+    for (let i = 0; i < 9; ++i) {
+        let e = document.createElement("div");
+        line = Math.round((i - 1) / 3);
+        col = Math.round(i % 3);
+        e.setAttribute('line', line);
+        e.setAttribute('col', col);
+        game.appendChild(e);
+    }
+}
 
 game.addEventListener('click', (e) => {
     const tg = e.target;
@@ -16,7 +26,7 @@ game.addEventListener('click', (e) => {
     table[line][col] = player;
     tg.innerHTML = player;
     ++mouves;
-    if (game_over(line, col, player)) {
+    if (isGameOver(line, col, player)) {
         alert(`Congrats ${player}! You won`);
         btn_reset.disabled = false;
     } else if (mouves == 9) {
@@ -26,19 +36,7 @@ game.addEventListener('click', (e) => {
         change_player();
     }
 });
-
-function table_generate() {
-    let line, col;
-    for (let i = 0; i < 9; ++i) {
-        let e = document.createElement("div");
-        line = Math.round((i + 2) / 3) - 1;
-        col = Math.round(i % 3);
-        e.setAttribute('line', line);
-        e.setAttribute('col', col);
-        game.appendChild(e);
-    }
-}
-
+ 
 function change_player() {
     if (player == "X")
         player = "0";
@@ -49,18 +47,16 @@ function change_player() {
 
 function reset_game() {
     for (let i = 0; i < 3; ++i) {
-        for (let j = 0; j < 3; ++j) {
-            table[i][j] = null;
-        }
+        table[i]=[];
     }
     Array.from(document.querySelectorAll('div[line]')).forEach(e => {
         e.textContent = null;
     });
-    document.getElementById("player").textContent = player;
+    document.getElementById("player").textContent = 'X';
     mouves = 0;
 }
 
-function game_over(line, col, player) {
+function isGameOver(line, col, player) {
     let count = 0;
     for (let i = 0; i < 3; ++i) {          // check line
         if (table[line][i] == player)
