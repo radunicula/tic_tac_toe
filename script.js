@@ -9,7 +9,11 @@ function table_generate() {
     let line, col;
     for (let i = 0; i < 9; ++i) {
         let e = document.createElement("div");
+<<<<<<< HEAD
         line = Math.round((i - 1) / 3);
+=======
+        line = Math.round((i + 2) / 3) - 1;
+>>>>>>> c2f24ad4197f7a87f80043ac215388676407eb54
         col = Math.round(i % 3);
         e.setAttribute('line', line);
         e.setAttribute('col', col);
@@ -36,7 +40,11 @@ game.addEventListener('click', (e) => {
         change_player();
     }
 });
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> c2f24ad4197f7a87f80043ac215388676407eb54
 function change_player() {
     if (player == "X")
         player = "0";
