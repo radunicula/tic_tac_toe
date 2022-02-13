@@ -9,8 +9,8 @@ function table_generate() {
     let line, col;
     for (let i = 0; i < 9; ++i) {
         let e = document.createElement("div");
-        line = Math.round((i - 1) / 3);
-        col = Math.round(i % 3);
+        line = Math.round((i - 1) / 3);  // integer part of i/3
+        col = i % 3;
         e.setAttribute('line', line);
         e.setAttribute('col', col);
         game.appendChild(e);
